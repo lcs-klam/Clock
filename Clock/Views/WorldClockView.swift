@@ -13,9 +13,16 @@ struct WorldClockView: View {
             VStack{
                 
                 //HongKong
-                CountryTime(time: "3:20", hoursDifference: 12, country: "Hong Kong", AMorPM: "AM")
+                CountryTime(time: "3:20", hoursDifference: 12, country: "Hong Kong", isAM: true, isAhead: true)
                 //Toronto
-                CountryTime(time: "3:20", hoursDifference: 0, country: "Toronto", AMorPM: "PM")
+                CountryTime(time: "3:20", hoursDifference: 0, country: "Toronto", isAM: false, isAhead: true)
+                //Ottowa
+                CountryTime(time: "3:20", hoursDifference: 0, country: "Ottowa", isAM: false, isAhead: true)
+                //Toronto
+                CountryTime(time: "1:20", hoursDifference: 2, country: "Alberta", isAM: false, isAhead: false)
+                //Las Vegas
+                CountryTime(time: "12:20", hoursDifference: 3, country: "Las Vegas", isAM: false, isAhead: false)
+                
                 
                 Text("World Clock")
                     .navigationTitle("World Clock")
@@ -57,24 +64,24 @@ struct CountryTime: View {
     let time: String
     let hoursDifference: Int
     let country: String
-    let AMorPM: String
+    let isAM: Bool
+    let isAhead: Bool
     
     var body: some View {
-        HStack{
-            //Left side
-            VStack{
-                Text("Today, +\(hoursDifference)HRS")
+        HStack {
+            // Left side
+            VStack {
+                Text("Today, \(isAhead == true ? "+" : "-")\(abs(hoursDifference))HRS")
                 Text(country)
                     .font(.system(.largeTitle, design: .default, weight: .thin))
             }
             Spacer()
             
-            //Right Side
+            // Right Side
             Text(time)
                 .font(.system(size: 64.0, weight: .thin, design: .default))
-            Text(AMorPM)
+            Text(isAM == true ? "AM" : "PM")
                 .font(.system(.largeTitle, design: .default, weight: .thin))
-            
         }
     }
 }
